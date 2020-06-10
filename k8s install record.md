@@ -40,8 +40,8 @@ EOF
 
 7.拉取所需要的镜像组件(bash image.list)其中组件版本号需要通过kubeadm config images list --kubernetes-version=v1.18.2获取
 #!/bin/bash
-# download k8s 1.18.2 images
-# get image-list by 'kubeadm config images list --kubernetes-version=v1.18.2'
+    # download k8s 1.18.2 images
+    # get image-list by 'kubeadm config images list --kubernetes-version=v1.18.2'
 images=(
 kube-apiserver:v1.18.2
 kube-controller-manager:v1.18.2
