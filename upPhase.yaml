@@ -1,0 +1,15 @@
+apiVersion: haha
+kind: note
+
+1.如何保证redis高并发及高可用
+主从 哨兵 集群来解决
+主从模式的缺点是master挂掉后，集群无法工作
+哨兵模式的缺点是master写入的并发量受到限制
+集群模式的缺点是资源维护以及高并发带来的key-value需要分片降低了性能
+
+2.如何保证缓存与数据库的数据一致性
+查redis 查db 写redis
+删redis 改db
+
+
+
