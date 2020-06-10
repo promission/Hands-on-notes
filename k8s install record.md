@@ -1,5 +1,5 @@
 --- Centos7.5系统安装kubernetesv1.18.3记录【无需翻墙】
-1.安装docker19.03.8版本
+0.安装docker19.03.8版本
 安装完成docker version查看版本
 
 1.关闭&&禁用防火墙
@@ -38,7 +38,7 @@ repo_gpgcheck=1
 gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
 EOF
 
-7.拉取所需要的镜像组件
+7.拉取所需要的镜像组件(bash image.list)其中组件版本号需要通过kubeadm config images list --kubernetes-version=v1.18.2获取
 #!/bin/bash
 # download k8s 1.18.2 images
 # get image-list by 'kubeadm config images list --kubernetes-version=v1.18.2'
