@@ -20,3 +20,17 @@ echo -n $PASSWORD | faas-cli login --password-stdin
 
 6.最佳实践
 通过docker hub完成函数发布
+
+
+--- 使用helm3安装、可以开放多个命令空间的权限使用
+git clone https://github.com/openfaas/faas-netes.git
+cd faas-netes
+1.安装helm3
+2.kubectl apply -f namespaces.yml
+3.helm repo add openfaas https://openfaas.github.io/faas-netes/
+4.helm repo update && helm upgrade openfaas --install openfaas/openfaas --namespace openfaas --set functionNamespace=openfaas-fn --set generateBasicAuth=true --set clusterRole=true
+5.显示密码echo $(kubectl -n openfaas get secret basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode)
+使用faas-cli进行admin：密码的登陆
+
+
+--- 本地化安装、不在列出，可参考官网
