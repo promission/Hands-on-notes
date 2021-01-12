@@ -1,15 +1,50 @@
 apiVersion: haha
 kind: note
 
+=================MYSQL篇========================
+
+1.mysql锁主动释放
+show open tables where in_use > 0 ;
+
+show processlist;
+
+SELECT * FROM information_schema.INNODB_TRX;
+
+SELECT * FROM information_schema.INNODB_LOCKs;
+
+SELECT concat('KILL ',id,';')  FROM information_schema.processlist p  INNER JOIN  information_schema.INNODB_TRX x  ON p.id=x.trx_mysql_thread_id  WHERE db='db_device';
+
+2.innodb和myisam存储引擎的区别
+主要区别：是否支持事务  其次锁的粒度可以到行锁  后者是表级别的锁
+所以主查询的场景可以考虑使用后者
+
+3.索引分类（主键、唯一索引、全文索引、覆盖索引等等），最左前缀原则，哪些条件无法使用索引
+记不住哪些场景会导致索引失效 可以使用explain查看索引是否使用到  一般是索引使用函数或者全表or之类的会失效
+
+4.B树、B+树区别，索引为何使用B+树
+前者子节点和叶子节点都会存储索引数据  但是后者只会在叶子节点上按照顺序存储元素信息 并形成链表的结构 同时指向下一个node
+mysql使用后者，查询效率更高  也适用于范围查询
+
+5. 聚集索引与非聚集索引（使用非聚集索引的查询过程）
+聚集索引是逻辑顺序与落盘顺序保持一致的，非聚集索引则只有逻辑索引是顺序的，内容是通过指针指向过去的
+
+6.事务隔离级别和各自存在的问题（脏读、不可重复读、幻读）和解决方式（间隙锁及MVCC）
+默认级别会有幻读
+
+7.乐观锁和悲观锁、行锁与表锁、共享锁与排他锁（inndob如何手动加共享锁与排他锁）
+version控制乐观锁  共享lock share 排它for update 悲观所
+
+8.数据库崩溃时事务的恢复机制（REDO日志和UNDO日志）
+redo事务提交前的新数据备份 undo事务提交前的旧数据备份
+
+
+=================REDIS篇========================
+
 1.如何保证redis高并发及高可用
 主从 哨兵 集群来解决
 主从模式的缺点是master挂掉后，集群无法工作
 哨兵模式的缺点是master写入的并发量受到限制
 集群模式的缺点是资源维护以及高并发带来的key-value需要分片降低了性能
-
-2.如何保证缓存与数据库的数据一致性
-查redis 查db 写redis
-删redis 改db
 
 
 
